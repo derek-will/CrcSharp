@@ -38,50 +38,49 @@ using CrcSharp;
 
 namespace CrcSharpTests
 {
-	[TestFixture]
-	public class CrcParametersTests
-	{
-		[Test]
-		public void CrcParameters_Ctor_Valid_Success()
-		{
-			var crcParams = new CrcParameters(32, 0x14c108e0, 0xffff0000, 0xeeaa00b1, true, false);
-			Assert.AreEqual(32, crcParams.Width);
-			Assert.AreEqual(0x14c108e0, crcParams.Polynomial);
-			Assert.AreEqual(0xffff0000, crcParams.InitialValue);
-			Assert.AreEqual(0xeeaa00b1, crcParams.XorOutValue);
-			Assert.AreEqual(true, crcParams.ReflectIn);
-			Assert.AreEqual(false, crcParams.ReflectOut);
-		}
+    public class CrcParametersTests
+    {
+        [Test]
+        public void CrcParameters_Ctor_Valid_Success()
+        {
+            var crcParams = new CrcParameters(32, 0x14c108e0, 0xffff0000, 0xeeaa00b1, true, false);
+            Assert.AreEqual(32, crcParams.Width);
+            Assert.AreEqual(0x14c108e0, crcParams.Polynomial);
+            Assert.AreEqual(0xffff0000, crcParams.InitialValue);
+            Assert.AreEqual(0xeeaa00b1, crcParams.XorOutValue);
+            Assert.AreEqual(true, crcParams.ReflectIn);
+            Assert.AreEqual(false, crcParams.ReflectOut);
+        }
 
-		[Test]
-		public void CrcParameters_Ctor_Invalid_TooBigPolynomial()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(32, 0x1FFFFFFFF, 0xffff0000, 0xeeaa00b1, true, false));
-		}
+        [Test]
+        public void CrcParameters_Ctor_Invalid_TooBigPolynomial()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(32, 0x1FFFFFFFF, 0xffff0000, 0xeeaa00b1, true, false));
+        }
 
-		[Test]
-		public void CrcParameters_Ctor_Invalid_TooBigInitValue()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(32, 0xFFFFFFFF, 0x1FFFFFFFF, 0xeeaa00b1, true, false));
-		}
+        [Test]
+        public void CrcParameters_Ctor_Invalid_TooBigInitValue()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(32, 0xFFFFFFFF, 0x1FFFFFFFF, 0xeeaa00b1, true, false));
+        }
 
-		[Test]
-		public void CrcParameters_Ctor_Invalid_TooBigXorOutValue()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(32, 0xFFFFFFFF, 0xFFFFFFFF, 0x1FFFFFFFF, true, false));
-		}
+        [Test]
+        public void CrcParameters_Ctor_Invalid_TooBigXorOutValue()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(32, 0xFFFFFFFF, 0xFFFFFFFF, 0x1FFFFFFFF, true, false));
+        }
 
-		[Test]
-		public void CrcParameters_Ctor_Invalid_WidthTooSmall()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(7, 0x0F, 0x0F, 0x0F, false, false));
-		}
+        [Test]
+        public void CrcParameters_Ctor_Invalid_WidthTooSmall()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(7, 0x0F, 0x0F, 0x0F, false, false));
+        }
 
-		[Test]
-		public void CrcParameters_Ctor_Invalid_WidthTooBig()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(65, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF, false, false));
-		}
-	}
+        [Test]
+        public void CrcParameters_Ctor_Invalid_WidthTooBig()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(65, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF, false, false));
+        }
+    }
 }
 

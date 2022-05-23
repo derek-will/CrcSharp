@@ -39,24 +39,23 @@ using CrcSharp;
 
 namespace CrcSharpTests
 {
-	[TestFixture]
-	class Crc30Tests
-	{
-		private byte[] _data;
+    public class Crc30Tests
+    {
+        private byte[] _data;
 
-		[SetUp]
-		protected void SetUp()
-		{
-			_data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
-		}
+        [SetUp]
+        protected void SetUp()
+        {
+            _data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
+        }
 
-		[Test]
-		public void Crc30_CDMA_Calculate()
-		{
-			var crc30 = new Crc(new CrcParameters(30, 0x2030b9c7, 0x3fffffff, 0x3fffffff, false, false));
-			Assert.AreEqual(0x04c34abf, crc30.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc30.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xbf, 0x4a, 0xc3, 0x04 }));
-		}
-	}
+        [Test]
+        public void Crc30_CDMA_Calculate()
+        {
+            var crc30 = new Crc(new CrcParameters(30, 0x2030b9c7, 0x3fffffff, 0x3fffffff, false, false));
+            Assert.AreEqual(0x04c34abf, crc30.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc30.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xbf, 0x4a, 0xc3, 0x04 }));
+        }
+    }
 }
 

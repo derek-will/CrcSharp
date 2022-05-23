@@ -39,39 +39,38 @@ using CrcSharp;
 
 namespace CrcSharpTests
 {
-	[TestFixture]
-	public class Crc10Tests
-	{
-		private byte[] _data;
+    public class Crc10Tests
+    {
+        private byte[] _data;
 
-		[SetUp]
-		protected void SetUp()
-		{
-			_data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
-		}
+        [SetUp]
+        protected void SetUp()
+        {
+            _data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
+        }
 
-		[Test]
-		public void Crc10_Standard_Calculate()
-		{
-			var crc10 = new Crc(new CrcParameters(10, 0x233, 0x000, 0x000, false, false));
-			Assert.AreEqual(0x199, crc10.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc10.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x99, 0x01 }));
-		}
+        [Test]
+        public void Crc10_Standard_Calculate()
+        {
+            var crc10 = new Crc(new CrcParameters(10, 0x233, 0x000, 0x000, false, false));
+            Assert.AreEqual(0x199, crc10.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc10.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x99, 0x01 }));
+        }
 
-		[Test]
-		public void Crc10_CDMA2000_Calculate()
-		{
-			var crc10 = new Crc(new CrcParameters(10, 0x3d9, 0x3ff, 0x000, false, false));
-			Assert.AreEqual(0x233, crc10.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc10.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x33, 0x02 }));
-		}
+        [Test]
+        public void Crc10_CDMA2000_Calculate()
+        {
+            var crc10 = new Crc(new CrcParameters(10, 0x3d9, 0x3ff, 0x000, false, false));
+            Assert.AreEqual(0x233, crc10.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc10.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x33, 0x02 }));
+        }
 
-		[Test]
-		public void Crc10_GSM_Calculate()
-		{
-			var crc10 = new Crc(new CrcParameters(10, 0x175, 0x000, 0x3ff, false, false));
-			Assert.AreEqual(0x12a, crc10.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc10.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x2a, 0x01 }));
-		}
-	}
+        [Test]
+        public void Crc10_GSM_Calculate()
+        {
+            var crc10 = new Crc(new CrcParameters(10, 0x175, 0x000, 0x3ff, false, false));
+            Assert.AreEqual(0x12a, crc10.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc10.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x2a, 0x01 }));
+        }
+    }
 }

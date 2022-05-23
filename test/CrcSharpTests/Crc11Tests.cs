@@ -39,31 +39,30 @@ using CrcSharp;
 
 namespace CrcSharpTests
 {
-	[TestFixture]
-	public class Crc11Tests
-	{
-		private byte[] _data;
+    public class Crc11Tests
+    {
+        private byte[] _data;
 
-		[SetUp]
-		protected void SetUp()
-		{
-			_data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
-		}
+        [SetUp]
+        protected void SetUp()
+        {
+            _data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
+        }
 
-		[Test]
-		public void Crc11_Standard_Calculate()
-		{
-			var crc11 = new Crc(new CrcParameters(11, 0x385, 0x01a, 0x000, false, false));
-			Assert.AreEqual(0x5a3, crc11.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc11.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xa3, 0x05 }));
-		}
+        [Test]
+        public void Crc11_Standard_Calculate()
+        {
+            var crc11 = new Crc(new CrcParameters(11, 0x385, 0x01a, 0x000, false, false));
+            Assert.AreEqual(0x5a3, crc11.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc11.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xa3, 0x05 }));
+        }
 
-		[Test]
-		public void Crc11_UMTS_Calculate()
-		{
-			var crc11 = new Crc(new CrcParameters(11, 0x307, 0x000, 0x000, false, false));
-			Assert.AreEqual(0x061, crc11.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc11.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x61, 0x00 }));
-		}
-	}
+        [Test]
+        public void Crc11_UMTS_Calculate()
+        {
+            var crc11 = new Crc(new CrcParameters(11, 0x307, 0x000, 0x000, false, false));
+            Assert.AreEqual(0x061, crc11.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc11.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x61, 0x00 }));
+        }
+    }
 }

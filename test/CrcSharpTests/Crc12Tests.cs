@@ -39,47 +39,46 @@ using CrcSharp;
 
 namespace CrcSharpTests
 {
-	[TestFixture]
-	public class Crc12Tests
-	{
-		private byte[] _data;
+    public class Crc12Tests
+    {
+        private byte[] _data;
 
-		[SetUp]
-		protected void SetUp()
-		{
-			_data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
-		}
+        [SetUp]
+        protected void SetUp()
+        {
+            _data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
+        }
 
-		[Test]
-		public void Crc12_CDMA2000_Calculate()
-		{
-			var crc12 = new Crc(new CrcParameters(12, 0xf13, 0xfff, 0x000, false, false));
-			Assert.AreEqual(0xd4d, crc12.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc12.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x4d, 0x0d }));
-		}
+        [Test]
+        public void Crc12_CDMA2000_Calculate()
+        {
+            var crc12 = new Crc(new CrcParameters(12, 0xf13, 0xfff, 0x000, false, false));
+            Assert.AreEqual(0xd4d, crc12.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc12.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x4d, 0x0d }));
+        }
 
-		[Test]
-		public void Crc12_DECT_Calculate()
-		{
-			var crc12 = new Crc(new CrcParameters(12, 0x80f, 0x000, 0x000, false, false));
-			Assert.AreEqual(0xf5b, crc12.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc12.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x5b, 0x0f }));
-		}
+        [Test]
+        public void Crc12_DECT_Calculate()
+        {
+            var crc12 = new Crc(new CrcParameters(12, 0x80f, 0x000, 0x000, false, false));
+            Assert.AreEqual(0xf5b, crc12.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc12.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x5b, 0x0f }));
+        }
 
-		[Test]
-		public void Crc12_UMTS_Calculate()
-		{
-			var crc12 = new Crc(new CrcParameters(12, 0x80f, 0x000, 0x000, false, true));
-			Assert.AreEqual(0xdaf, crc12.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc12.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xaf, 0x0d }));
-		}
+        [Test]
+        public void Crc12_UMTS_Calculate()
+        {
+            var crc12 = new Crc(new CrcParameters(12, 0x80f, 0x000, 0x000, false, true));
+            Assert.AreEqual(0xdaf, crc12.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc12.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xaf, 0x0d }));
+        }
 
-		[Test]
-		public void Crc12_GSM_Calculate()
-		{
-			var crc12 = new Crc(new CrcParameters(12, 0xd31, 0x000, 0xfff, false, false));
-			Assert.AreEqual(0xb34, crc12.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc12.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x34, 0x0b }));
-		}
-	}
+        [Test]
+        public void Crc12_GSM_Calculate()
+        {
+            var crc12 = new Crc(new CrcParameters(12, 0xd31, 0x000, 0xfff, false, false));
+            Assert.AreEqual(0xb34, crc12.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc12.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x34, 0x0b }));
+        }
+    }
 }

@@ -39,72 +39,71 @@ using CrcSharp;
 
 namespace CrcSharpTests
 {
-	[TestFixture]
-	class Crc24Tests
-	{
-		private byte[] _data;
+    public class Crc24Tests
+    {
+        private byte[] _data;
 
-		[SetUp]
-		protected void SetUp()
-		{
-			_data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
-		}
+        [SetUp]
+        protected void SetUp()
+        {
+            _data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
+        }
 
-		[Test]
-		public void Crc24_Standard_Calculate()
-		{
-			var crc24 = new Crc(new CrcParameters(24, 0x864cfb, 0xb704ce, 0x000000, false, false));
-			Assert.AreEqual(0x21cf02, crc24.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x02, 0xcf, 0x21 }));
-		}
+        [Test]
+        public void Crc24_Standard_Calculate()
+        {
+            var crc24 = new Crc(new CrcParameters(24, 0x864cfb, 0xb704ce, 0x000000, false, false));
+            Assert.AreEqual(0x21cf02, crc24.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x02, 0xcf, 0x21 }));
+        }
 
-		[Test]
-		public void Crc24_BLE_Calculate()
-		{
-			var crc24 = new Crc(new CrcParameters(24, 0x00065b, 0x555555, 0x000000, true, true));
-			Assert.AreEqual(0xc25a56, crc24.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x56, 0x5a, 0xc2 }));
-		}
+        [Test]
+        public void Crc24_BLE_Calculate()
+        {
+            var crc24 = new Crc(new CrcParameters(24, 0x00065b, 0x555555, 0x000000, true, true));
+            Assert.AreEqual(0xc25a56, crc24.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x56, 0x5a, 0xc2 }));
+        }
 
-		[Test]
-		public void Crc24_FlexRay_A_Calculate()
-		{
-			var crc24 = new Crc(new CrcParameters(24, 0x5d6dcb, 0xfedcba, 0x000000, false, false));
-			Assert.AreEqual(0x7979bd, crc24.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xbd, 0x79, 0x79 }));
-		}
+        [Test]
+        public void Crc24_FlexRay_A_Calculate()
+        {
+            var crc24 = new Crc(new CrcParameters(24, 0x5d6dcb, 0xfedcba, 0x000000, false, false));
+            Assert.AreEqual(0x7979bd, crc24.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xbd, 0x79, 0x79 }));
+        }
 
-		[Test]
-		public void Crc24_FlexRay_B_Calculate()
-		{
-			var crc24 = new Crc(new CrcParameters(24, 0x5d6dcb, 0xabcdef, 0x000000, false, false));
-			Assert.AreEqual(0x1f23b8, crc24.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xb8, 0x23, 0x1f }));
-		}
+        [Test]
+        public void Crc24_FlexRay_B_Calculate()
+        {
+            var crc24 = new Crc(new CrcParameters(24, 0x5d6dcb, 0xabcdef, 0x000000, false, false));
+            Assert.AreEqual(0x1f23b8, crc24.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xb8, 0x23, 0x1f }));
+        }
 
-		[Test]
-		public void Crc24_Interlaken_Calculate()
-		{
-			var crc24 = new Crc(new CrcParameters(24, 0x328b63, 0xffffff, 0xffffff, false, false));
-			Assert.AreEqual(0xb4f3e6, crc24.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xe6, 0xf3, 0xb4 }));
-		}
+        [Test]
+        public void Crc24_Interlaken_Calculate()
+        {
+            var crc24 = new Crc(new CrcParameters(24, 0x328b63, 0xffffff, 0xffffff, false, false));
+            Assert.AreEqual(0xb4f3e6, crc24.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xe6, 0xf3, 0xb4 }));
+        }
 
-		[Test]
-		public void Crc24_LTE_A_Calculate()
-		{
-			var crc24 = new Crc(new CrcParameters(24, 0x864cfb, 0x000000, 0x000000, false, false));
-			Assert.AreEqual(0xcde703, crc24.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x03, 0xe7, 0xcd }));
-		}
+        [Test]
+        public void Crc24_LTE_A_Calculate()
+        {
+            var crc24 = new Crc(new CrcParameters(24, 0x864cfb, 0x000000, 0x000000, false, false));
+            Assert.AreEqual(0xcde703, crc24.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x03, 0xe7, 0xcd }));
+        }
 
-		[Test]
-		public void Crc24_LTE_B_Calculate()
-		{
-			var crc24 = new Crc(new CrcParameters(24, 0x800063, 0x000000, 0x000000, false, false));
-			Assert.AreEqual(0x23ef52, crc24.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x52, 0xef, 0x23 }));
-		}
-	}
+        [Test]
+        public void Crc24_LTE_B_Calculate()
+        {
+            var crc24 = new Crc(new CrcParameters(24, 0x800063, 0x000000, 0x000000, false, false));
+            Assert.AreEqual(0x23ef52, crc24.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x52, 0xef, 0x23 }));
+        }
+    }
 }
 

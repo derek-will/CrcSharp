@@ -39,47 +39,46 @@ using CrcSharp;
 
 namespace CrcSharpTests
 {
-	[TestFixture]
-	class Crc64Tests
-	{
-		private byte[] _data;
+    public class Crc64Tests
+    {
+        private byte[] _data;
 
-		[SetUp]
-		protected void SetUp()
-		{
-			_data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
-		}
+        [SetUp]
+        protected void SetUp()
+        {
+            _data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
+        }
 
-		[Test]
-		public void Crc64_Standard_Calculate()
-		{
-			var crc64 = new Crc(new CrcParameters(64, 0x42f0e1eba9ea3693, 0x0000000000000000, 0x0000000000000000, false, false));
-			Assert.AreEqual(0x6c40df5f0b497347, crc64.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc64.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x47, 0x73, 0x49, 0x0b, 0x5f, 0xdf, 0x40, 0x6c }));
-		}
+        [Test]
+        public void Crc64_Standard_Calculate()
+        {
+            var crc64 = new Crc(new CrcParameters(64, 0x42f0e1eba9ea3693, 0x0000000000000000, 0x0000000000000000, false, false));
+            Assert.AreEqual(0x6c40df5f0b497347, crc64.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc64.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x47, 0x73, 0x49, 0x0b, 0x5f, 0xdf, 0x40, 0x6c }));
+        }
 
-		[Test]
-		public void Crc64_WE_Calculate()
-		{
-			var crc64 = new Crc(new CrcParameters(64, 0x42f0e1eba9ea3693, 0xffffffffffffffff, 0xffffffffffffffff, false, false));
-			Assert.AreEqual(0x62ec59e3f1a4f00a, crc64.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc64.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x0a, 0xf0, 0xa4, 0xf1, 0xe3, 0x59, 0xec, 0x62 }));
-		}
+        [Test]
+        public void Crc64_WE_Calculate()
+        {
+            var crc64 = new Crc(new CrcParameters(64, 0x42f0e1eba9ea3693, 0xffffffffffffffff, 0xffffffffffffffff, false, false));
+            Assert.AreEqual(0x62ec59e3f1a4f00a, crc64.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc64.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x0a, 0xf0, 0xa4, 0xf1, 0xe3, 0x59, 0xec, 0x62 }));
+        }
 
-		[Test]
-		public void Crc64_XZ_Calculate()
-		{
-			var crc64 = new Crc(new CrcParameters(64, 0x42f0e1eba9ea3693, 0xffffffffffffffff, 0xffffffffffffffff, true, true));
-			Assert.AreEqual(0x995dc9bbdf1939fa, crc64.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc64.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xfa, 0x39, 0x19, 0xdf, 0xbb, 0xc9, 0x5d, 0x99 }));
-		}
+        [Test]
+        public void Crc64_XZ_Calculate()
+        {
+            var crc64 = new Crc(new CrcParameters(64, 0x42f0e1eba9ea3693, 0xffffffffffffffff, 0xffffffffffffffff, true, true));
+            Assert.AreEqual(0x995dc9bbdf1939fa, crc64.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc64.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xfa, 0x39, 0x19, 0xdf, 0xbb, 0xc9, 0x5d, 0x99 }));
+        }
 
-		[Test]
-		public void Crc64_GO_ISO_Calculate()
-		{
-			var crc64 = new Crc(new CrcParameters(64, 0x000000000000001b, 0xffffffffffffffff, 0xffffffffffffffff, true, true));
-			Assert.AreEqual(0xb90956c775a41001, crc64.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc64.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x01, 0x10, 0xa4, 0x75, 0xc7, 0x56, 0x09, 0xb9 }));
-		}
-	}
+        [Test]
+        public void Crc64_GO_ISO_Calculate()
+        {
+            var crc64 = new Crc(new CrcParameters(64, 0x000000000000001b, 0xffffffffffffffff, 0xffffffffffffffff, true, true));
+            Assert.AreEqual(0xb90956c775a41001, crc64.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc64.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x01, 0x10, 0xa4, 0x75, 0xc7, 0x56, 0x09, 0xb9 }));
+        }
+    }
 }

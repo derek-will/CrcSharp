@@ -39,31 +39,30 @@ using CrcSharp;
 
 namespace CrcSharpTests
 {
-	[TestFixture]
-	public class Crc15Tests
-	{
-		private byte[] _data;
+    public class Crc15Tests
+    {
+        private byte[] _data;
 
-		[SetUp]
-		protected void SetUp()
-		{
-			_data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
-		}
+        [SetUp]
+        protected void SetUp()
+        {
+            _data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
+        }
 
-		[Test]
-		public void Crc15_Standard_Calculate()
-		{
-			var crc15 = new Crc(new CrcParameters(15, 0x4599, 0x0000, 0x0000, false, false));
-			Assert.AreEqual(0x059e, crc15.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc15.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x9e, 0x05 }));
-		}
+        [Test]
+        public void Crc15_Standard_Calculate()
+        {
+            var crc15 = new Crc(new CrcParameters(15, 0x4599, 0x0000, 0x0000, false, false));
+            Assert.AreEqual(0x059e, crc15.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc15.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x9e, 0x05 }));
+        }
 
-		[Test]
-		public void Crc15_MPT1327_Calculate()
-		{
-			var crc15 = new Crc(new CrcParameters(15, 0x6815, 0x0000, 0x0001, false, false));
-			Assert.AreEqual(0x2566, crc15.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc15.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x66, 0x25 }));
-		}
-	}
+        [Test]
+        public void Crc15_MPT1327_Calculate()
+        {
+            var crc15 = new Crc(new CrcParameters(15, 0x6815, 0x0000, 0x0001, false, false));
+            Assert.AreEqual(0x2566, crc15.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc15.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x66, 0x25 }));
+        }
+    }
 }

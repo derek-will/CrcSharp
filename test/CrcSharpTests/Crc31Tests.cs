@@ -39,23 +39,22 @@ using CrcSharp;
 
 namespace CrcSharpTests
 {
-	[TestFixture]
-	class Crc31Tests
-	{
-		private byte[] _data;
+    public class Crc31Tests
+    {
+        private byte[] _data;
 
-		[SetUp]
-		protected void SetUp()
-		{
-			_data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
-		}
+        [SetUp]
+        protected void SetUp()
+        {
+            _data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
+        }
 
-		[Test]
-		public void Crc31_Philips_Calculate()
-		{
-			var crc31 = new Crc(new CrcParameters(31, 0x04c11db7, 0x7fffffff, 0x7fffffff, false, false));
-			Assert.AreEqual(0x0ce9e46c, crc31.CalculateAsNumeric(_data));
-			Assert.IsTrue(crc31.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x6c, 0xe4, 0xe9, 0x0c }));
-		}
-	}
+        [Test]
+        public void Crc31_Philips_Calculate()
+        {
+            var crc31 = new Crc(new CrcParameters(31, 0x04c11db7, 0x7fffffff, 0x7fffffff, false, false));
+            Assert.AreEqual(0x0ce9e46c, crc31.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc31.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x6c, 0xe4, 0xe9, 0x0c }));
+        }
+    }
 }
