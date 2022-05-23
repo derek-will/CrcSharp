@@ -9,7 +9,7 @@ The library can be used to compute a CRC value using a `Crc` instance that is co
 byte[] data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789"); // sample data
 var crc32 = new Crc(new CrcParameters(32, 0x04c11db7, 0xffffffff, 0xffffffff, true, true)); // Standard CRC-32 configuration
 ulong checkValue = crc32.CalculateAsNumeric(data); //0xcbf43926
-byte[] checkValArray = crc32.CalculateCheckValue(data) // [0x26, 0x39, 0xf4, 0xcb]
+byte[] checkValArray = crc32.CalculateCheckValue(data); // [0x26, 0x39, 0xf4, 0xcb]
 ```
 
 ### Credits:

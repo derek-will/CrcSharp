@@ -42,9 +42,9 @@ namespace CrcSharp
 	public class CrcParameters
 	{        
         /// <summary>
-		/// The width of the CRC algorithm in bits.
-		/// </summary>
-		public int Width { get; }
+        /// The width of the CRC algorithm in bits.
+        /// </summary>
+        public int Width { get; }
 
         /// <summary>
         /// The polynomial of the CRC algorithm.
@@ -81,32 +81,32 @@ namespace CrcSharp
         /// <param name="reflectIn">If set to <c>true</c> each byte is to be reflected before being processed.</param>
         /// <param name="reflectOut">If set to <c>true</c> the final computed value is reflected before the XOR stage.</param>
         public CrcParameters(int width, ulong polynomial, ulong initialValue, ulong xorOutValue, bool reflectIn, bool reflectOut)
-		{
-			ThrowIfParametersInvalid(width, polynomial, initialValue, xorOutValue);
+        {
+            ThrowIfParametersInvalid(width, polynomial, initialValue, xorOutValue);
 
-			Width = width;
-			Polynomial = polynomial;
-			InitialValue = initialValue;
-			XorOutValue = xorOutValue;
-			ReflectIn = reflectIn;
-			ReflectOut = reflectOut;
-		}
+            Width = width;
+            Polynomial = polynomial;
+            InitialValue = initialValue;
+            XorOutValue = xorOutValue;
+            ReflectIn = reflectIn;
+            ReflectOut = reflectOut;
+        }
 
-		private void ThrowIfParametersInvalid(int width, ulong polynomial, ulong initialValue, ulong xorOutValue)
-		{
-			if (width < 8 || width > 64)
-				throw new ArgumentOutOfRangeException(nameof(width), "Width must be between 8-64 bits.");
+        private void ThrowIfParametersInvalid(int width, ulong polynomial, ulong initialValue, ulong xorOutValue)
+        {
+            if (width < 8 || width > 64)
+                throw new ArgumentOutOfRangeException(nameof(width), "Width must be between 8-64 bits.");
 
-			ulong maxValue = (UInt64.MaxValue >> (64 - width));
+            ulong maxValue = (UInt64.MaxValue >> (64 - width));
 
-			if (polynomial > maxValue)
-				throw new ArgumentOutOfRangeException(nameof(polynomial), $"Polynomial exceeds {width} bits.");
+            if (polynomial > maxValue)
+                throw new ArgumentOutOfRangeException(nameof(polynomial), $"Polynomial exceeds {width} bits.");
 
-			if (initialValue > maxValue)
-				throw new ArgumentOutOfRangeException(nameof(initialValue), $"Initial Value exceeds {width} bits.");
+            if (initialValue > maxValue)
+                throw new ArgumentOutOfRangeException(nameof(initialValue), $"Initial Value exceeds {width} bits.");
 
-			if (xorOutValue > maxValue)
-				throw new ArgumentOutOfRangeException(nameof(xorOutValue), $"XOR Out Value exceeds {width} bits.");
-		}
+            if (xorOutValue > maxValue)
+                throw new ArgumentOutOfRangeException(nameof(xorOutValue), $"XOR Out Value exceeds {width} bits.");
+        }
 	}
 }
