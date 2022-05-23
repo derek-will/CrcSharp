@@ -36,11 +36,11 @@ using System;
 
 namespace CrcSharp
 {
-	/// <summary>
-	/// CRC algorithm parameters.
-	/// </summary>
-	public class CrcParameters
-	{        
+    /// <summary>
+    /// CRC algorithm parameters.
+    /// </summary>
+    public class CrcParameters
+    {
         /// <summary>
         /// The width of the CRC algorithm in bits.
         /// </summary>
@@ -108,5 +108,5 @@ namespace CrcSharp
             if (xorOutValue > maxValue)
                 throw new ArgumentOutOfRangeException(nameof(xorOutValue), $"XOR Out Value exceeds {width} bits.");
         }
-	}
+    }
 }
