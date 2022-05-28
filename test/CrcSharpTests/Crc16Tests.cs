@@ -66,7 +66,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc16_BUYPASS_Calculate()
+        public void Crc16_UMTS_Calculate()
         {
             var crc16 = new Crc(new CrcParameters(16, 0x8005, 0x0000, 0x0000, false, false));
             Assert.AreEqual(0xfee8, crc16.CalculateAsNumeric(_data));
@@ -226,7 +226,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc16_A_Calculate()
+        public void Crc16_ISO_IEC_14443_3_A_Calculate()
         {
             var crc16 = new Crc(new CrcParameters(16, 0x1021, 0xc6c6, 0x0000, true, true));
             Assert.AreEqual(0xbf05, crc16.CalculateAsNumeric(_data));
@@ -258,7 +258,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc16_X25_Calculate()
+        public void Crc16_IBM_SDLC_Calculate()
         {
             var crc16 = new Crc(new CrcParameters(16, 0x1021, 0xffff, 0xffff, true, true));
             Assert.AreEqual(0x906e, crc16.CalculateAsNumeric(_data));

@@ -50,7 +50,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc24_Standard_Calculate()
+        public void Crc24_OpenPGP_Calculate()
         {
             var crc24 = new Crc(new CrcParameters(24, 0x864cfb, 0xb704ce, 0x000000, false, false));
             Assert.AreEqual(0x21cf02, crc24.CalculateAsNumeric(_data));

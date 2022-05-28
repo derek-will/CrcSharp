@@ -50,7 +50,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc10_Standard_Calculate()
+        public void Crc10_ATM_Calculate()
         {
             var crc10 = new Crc(new CrcParameters(10, 0x233, 0x000, 0x000, false, false));
             Assert.AreEqual(0x199, crc10.CalculateAsNumeric(_data));

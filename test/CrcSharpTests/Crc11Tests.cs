@@ -50,7 +50,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc11_Standard_Calculate()
+        public void Crc11_FlexRay_Calculate()
         {
             var crc11 = new Crc(new CrcParameters(11, 0x385, 0x01a, 0x000, false, false));
             Assert.AreEqual(0x5a3, crc11.CalculateAsNumeric(_data));

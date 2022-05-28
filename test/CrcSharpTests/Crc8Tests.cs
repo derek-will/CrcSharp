@@ -50,7 +50,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc8_Standard_Calculate()
+        public void Crc8_SMBus_Calculate()
         {
             var crc8 = new Crc(new CrcParameters(8, 0x07, 0x00, 0x00, false, false));
             Assert.AreEqual(0xf4, crc8.CalculateAsNumeric(_data));

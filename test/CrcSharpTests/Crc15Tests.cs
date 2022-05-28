@@ -50,7 +50,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc15_Standard_Calculate()
+        public void Crc15_CAN_Calculate()
         {
             var crc15 = new Crc(new CrcParameters(15, 0x4599, 0x0000, 0x0000, false, false));
             Assert.AreEqual(0x059e, crc15.CalculateAsNumeric(_data));

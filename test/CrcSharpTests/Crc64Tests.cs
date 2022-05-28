@@ -50,7 +50,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc64_Standard_Calculate()
+        public void Crc64_ECMA_182_Calculate()
         {
             var crc64 = new Crc(new CrcParameters(64, 0x42f0e1eba9ea3693, 0x0000000000000000, 0x0000000000000000, false, false));
             Assert.AreEqual(0x6c40df5f0b497347, crc64.CalculateAsNumeric(_data));

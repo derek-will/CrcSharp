@@ -50,7 +50,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc32_Standard_Calculate()
+        public void Crc32_ISO_HDLC_Calculate()
         {
             var crc32 = new Crc(new CrcParameters(32, 0x04c11db7, 0xffffffff, 0xffffffff, true, true));
             Assert.AreEqual(0xcbf43926, crc32.CalculateAsNumeric(_data));
@@ -74,7 +74,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc32_C_Calculate()
+        public void Crc32_ISCSI_Calculate()
         {
             var crc32 = new Crc(new CrcParameters(32, 0x1edc6f41, 0xffffffff, 0xffffffff, true, true));
             Assert.AreEqual(0xe3069283, crc32.CalculateAsNumeric(_data));
@@ -82,7 +82,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc32_D_Calculate()
+        public void Crc32_BASE91_D_Calculate()
         {
             var crc32 = new Crc(new CrcParameters(32, 0xa833982b, 0xffffffff, 0xffffffff, true, true));
             Assert.AreEqual(0x87315576, crc32.CalculateAsNumeric(_data));
@@ -98,7 +98,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc32_POSIX_Calculate()
+        public void Crc32_CKSUM_Calculate()
         {
             var crc32 = new Crc(new CrcParameters(32, 0x04c11db7, 0x00000000, 0xffffffff, false, false));
             Assert.AreEqual(0x765e7680, crc32.CalculateAsNumeric(_data));
@@ -106,7 +106,7 @@ namespace CrcSharpTests
         }
 
         [Test]
-        public void Crc32_Q_Calculate()
+        public void Crc32_AIXM_Calculate()
         {
             var crc32 = new Crc(new CrcParameters(32, 0x814141ab, 0x00000000, 0x00000000, false, false));
             Assert.AreEqual(0x3010bf7f, crc32.CalculateAsNumeric(_data));
