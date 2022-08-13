@@ -94,8 +94,8 @@ namespace CrcSharp
 
         private void ThrowIfParametersInvalid(int width, ulong polynomial, ulong initialValue, ulong xorOutValue)
         {
-            if (width < 8 || width > 64)
-                throw new ArgumentOutOfRangeException(nameof(width), "Width must be between 8-64 bits.");
+            if (width < 2 || width > 64)
+                throw new ArgumentOutOfRangeException(nameof(width), "Width must be between 2-64 bits.");
 
             ulong maxValue = (UInt64.MaxValue >> (64 - width));
 

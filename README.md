@@ -16,8 +16,13 @@ byte[] checkValArray = crc32.CalculateCheckValue(data); // [0x26, 0x39, 0xf4, 0x
 
 | Family  | Count | Models             | 
 |:--------|:------|:-------------------|
-| CRC-8   | 16    | AUTOSAR, CDMA2000, DARC, DVB-S2, EBU, I-CODE, ITU, GSM-A, GSM-B, ROHC, OpenSAFETY, J1850, LTE, Maxim, SMBus, WCDMA| 
-| CRC-10  | 3     | ATM, CDMA2000, GSM|
+| CRC-3   | 2    | GSM, ROHC | 
+| CRC-4   | 2    | G-704, Interlaken | 
+| CRC-5   | 3    | EPC-C1G2, G-704, USB | 
+| CRC-6   | 5    | CDMA2000-A, CDMA2000-B, DARC, G-704, GSM | 
+| CRC-7   | 3    | MMC, ROHC, UMTS | 
+| CRC-8   | 16    | AUTOSAR, CDMA2000, DARC, DVB-S2, EBU, I-CODE, ITU, GSM-A, GSM-B, ROHC, OpenSAFETY, J1850, LTE, Maxim, SMBus, WCDMA | 
+| CRC-10  | 3     | ATM, CDMA2000, GSM |
 | CRC-11  | 2     | FlexRay, UMTS |
 | CRC-12  | 4     | CDMA2000, UMTS, DECT, GSM |
 | CRC-13  | 1     | BBC |
@@ -30,7 +35,7 @@ byte[] checkValArray = crc32.CalculateCheckValue(data); // [0x26, 0x39, 0xf4, 0x
 | CRC-32  | 10    | ISO-HDLC, AUTOSAR, bzip2, ISCSI, BASE91-D, MPEG-2, cksum, AIXM, JAMCRC, XFER |
 | CRC-40  | 1     | GSM |
 | CRC-64  | 4     | ECMA-182, Go ISO, WE, XZ |
-| Total   | 83    |  |
+| Total   | 98    |  |
 
 ### Credits:
 

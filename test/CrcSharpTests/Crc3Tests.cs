@@ -1,4 +1,4 @@
-﻿#region License
+#region License
 /* 
 BSD 3-Clause License
 
@@ -33,54 +33,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
 using System;
+using System.Linq;
 using NUnit.Framework;
 using CrcSharp;
 
 namespace CrcSharpTests
 {
-    public class CrcParametersTests
+    public class Crc3Tests
     {
-        [Test]
-        public void CrcParameters_Ctor_Valid_Success()
+        private byte[] _data;
+
+        [SetUp]
+        protected void SetUp()
         {
-            var crcParams = new CrcParameters(32, 0x14c108e0, 0xffff0000, 0xeeaa00b1, true, false);
-            Assert.AreEqual(32, crcParams.Width);
-            Assert.AreEqual(0x14c108e0, crcParams.Polynomial);
-            Assert.AreEqual(0xffff0000, crcParams.InitialValue);
-            Assert.AreEqual(0xeeaa00b1, crcParams.XorOutValue);
-            Assert.AreEqual(true, crcParams.ReflectIn);
-            Assert.AreEqual(false, crcParams.ReflectOut);
+            _data = System.Text.ASCIIEncoding.ASCII.GetBytes("123456789");
         }
 
         [Test]
-        public void CrcParameters_Ctor_Invalid_TooBigPolynomial()
+        public void Crc3_ROHC_Calculate()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(32, 0x1FFFFFFFF, 0xffff0000, 0xeeaa00b1, true, false));
+            var crc3 = new Crc(new CrcParameters(3, 0x03, 0x07, 0x00, true, true));
+            Assert.AreEqual(0x06, crc3.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc3.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x06 }));
         }
 
         [Test]
-        public void CrcParameters_Ctor_Invalid_TooBigInitValue()
+        public void Crc3_GSM_Calculate()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(32, 0xFFFFFFFF, 0x1FFFFFFFF, 0xeeaa00b1, true, false));
-        }
-
-        [Test]
-        public void CrcParameters_Ctor_Invalid_TooBigXorOutValue()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(32, 0xFFFFFFFF, 0xFFFFFFFF, 0x1FFFFFFFF, true, false));
-        }
-
-        [Test]
-        public void CrcParameters_Ctor_Invalid_WidthTooSmall()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(1, 0x0F, 0x01, 0x01, false, false));
-        }
-
-        [Test]
-        public void CrcParameters_Ctor_Invalid_WidthTooBig()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new CrcParameters(65, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF, false, false));
+            var crc3 = new Crc(new CrcParameters(3, 0x03, 0x00, 0x07, false, false));
+            Assert.AreEqual(0x04, crc3.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc3.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x04 }));
         }
     }
 }
-

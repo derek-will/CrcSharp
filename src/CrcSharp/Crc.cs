@@ -90,18 +90,35 @@ namespace CrcSharp
                 crc = ReflectBits(crc, Parameters.Width);
             }
 
+            if (!Parameters.ReflectIn && Parameters.Width < 8)
+            {
+                crc = crc << (8 - Parameters.Width);
+            }
+
             foreach (byte b in data) 
             {
-                if (Parameters.ReflectIn) 
+                if (Parameters.Width < 8)
                 {
-                    crc = LookupTable[(crc ^ b) & 0xFF] ^ (crc >> 8);
-                } 
-                else 
+                    crc = LookupTable[(crc ^ b) & 0xFF];
+                }
+                else
                 {
-                    crc = LookupTable[((crc >> (Parameters.Width - 8)) ^ b) & 0xFF] ^ (crc << 8);
+                    if (Parameters.ReflectIn)
+                    {
+                        crc = LookupTable[(crc ^ b) & 0xFF] ^ (crc >> 8);
+                    }
+                    else
+                    {
+                        crc = LookupTable[((crc >> (Parameters.Width - 8)) ^ b) & 0xFF] ^ (crc << 8);
+                    }
                 }
 
-                crc &= (UInt64.MaxValue >> (64 - Parameters.Width));
+                crc &= (UInt64.MaxValue >> (64 - (Parameters.Width < 8 ? 8 : Parameters.Width)));
+            }
+
+            if (!Parameters.ReflectIn && Parameters.Width < 8)
+            {
+                crc = crc >> (8 - Parameters.Width);
             }
 
             // Source: https://stackoverflow.com/questions/28656471/how-to-configure-calculation-of-crc-table/28661073#28661073
@@ -122,7 +139,7 @@ namespace CrcSharp
                 throw new InvalidOperationException("CRC parameters must be set prior to calling this method.");
 
             var lookupTable = new ulong[256];
-            ulong topBit = (ulong)((ulong)1 << (Parameters.Width - 1));
+            ulong topBit = (ulong)((ulong)1 << ((Parameters.Width < 8 ? 8 : Parameters.Width) - 1));
 
             for (int i = 0; i < lookupTable.Length; i++) 
             {
@@ -132,12 +149,19 @@ namespace CrcSharp
                     inByte = (byte)ReflectBits(inByte, 8);
                 }
 
-                ulong r = (ulong)((ulong)inByte << (Parameters.Width - 8));
+                ulong r = (ulong)(Parameters.Width < 8 ? (ulong)inByte : (ulong)inByte << (Parameters.Width - 8));
                 for (int j = 0; j < 8; j++)
                 {
                     if ((r & topBit) != 0)
                     {
-                        r = ((r << 1) ^ Parameters.Polynomial);
+                        if (Parameters.Width < 8)
+                        {
+                            r = ((r << 1) ^ (Parameters.Polynomial << (8 - Parameters.Width)));
+                        }
+                        else
+                        {
+                            r = ((r << 1) ^ Parameters.Polynomial);
+                        }
                     }
                     else
                     {
@@ -147,10 +171,10 @@ namespace CrcSharp
 
                 if (Parameters.ReflectIn)
                 {
-                    r = ReflectBits(r, Parameters.Width);
+                    r = ReflectBits(r, Parameters.Width < 8 ? 8: Parameters.Width);
                 }
-
-                lookupTable[i] = r & (UInt64.MaxValue >> (64 - Parameters.Width));
+                
+                lookupTable[i] = r & (UInt64.MaxValue >> (64 - (Parameters.Width < 8 ? 8 : Parameters.Width)));
             }
 
             return lookupTable;
