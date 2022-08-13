@@ -104,6 +104,14 @@ namespace CrcSharpTests
             Assert.AreEqual(0x23ef52, crc24.CalculateAsNumeric(_data));
             Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x52, 0xef, 0x23 }));
         }
+
+        [Test]
+        public void Crc24_OS_9_Calculate()
+        {
+            var crc24 = new Crc(new CrcParameters(24, 0x800063, 0xffffff, 0xffffff, false, false));
+            Assert.AreEqual(0x200fa5, crc24.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc24.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xa5, 0x0f, 0x20 }));
+        }
     }
 }
 

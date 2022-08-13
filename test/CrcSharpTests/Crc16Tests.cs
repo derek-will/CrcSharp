@@ -280,6 +280,22 @@ namespace CrcSharpTests
             Assert.AreEqual(0xce3c, crc16.CalculateAsNumeric(_data));
             Assert.IsTrue(crc16.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x3c, 0xce }));
         }
+
+        [Test]
+        public void Crc16_M17_Calculate()
+        {
+            var crc16 = new Crc(new CrcParameters(16, 0x5935, 0xffff, 0x0000, false, false));
+            Assert.AreEqual(0x772b, crc16.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc16.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x2b, 0x77 }));
+        }
+
+        [Test]
+        public void Crc16_NRSC_5_Calculate()
+        {
+            var crc16 = new Crc(new CrcParameters(16, 0x080b, 0xffff, 0x0000, true, true));
+            Assert.AreEqual(0xa066, crc16.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc16.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x66, 0xa0 }));
+        }
     }
 }
 

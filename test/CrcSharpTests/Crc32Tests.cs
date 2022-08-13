@@ -128,5 +128,21 @@ namespace CrcSharpTests
             Assert.AreEqual(0xbd0be338, crc32.CalculateAsNumeric(_data));
             Assert.IsTrue(crc32.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x38, 0xe3, 0x0b, 0xbd }));
         }
+
+        [Test]
+        public void Crc32_CD_ROM_EDC_Calculate()
+        {
+            var crc32 = new Crc(new CrcParameters(32, 0x8001801b, 0x00000000, 0x00000000, true, true));
+            Assert.AreEqual(0x6ec2edc4, crc32.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc32.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xc4, 0xed, 0xc2, 0x6e }));
+        }
+
+        [Test]
+        public void Crc32_MEF_Calculate()
+        {
+            var crc32 = new Crc(new CrcParameters(32, 0x741b8cd7, 0xffffffff, 0x00000000, true, true));
+            Assert.AreEqual(0xd2c22f51, crc32.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc32.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x51, 0x2f, 0xc2, 0xd2 }));
+        }
     }
 }

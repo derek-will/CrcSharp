@@ -176,6 +176,38 @@ namespace CrcSharpTests
             Assert.AreEqual(0x94, crc8.CalculateAsNumeric(_data));
             Assert.IsTrue(crc8.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x94 }));
         }
+
+        [Test]
+        public void Crc8_BLUETOOTH_Calculate()
+        {
+            var crc8 = new Crc(new CrcParameters(8, 0xa7, 0x00, 0x00, true, true));
+            Assert.AreEqual(0x26, crc8.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc8.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x26 }));
+        }
+
+        [Test]
+        public void Crc8_HITAG_Calculate()
+        {
+            var crc8 = new Crc(new CrcParameters(8, 0x1d, 0xff, 0x00, false, false));
+            Assert.AreEqual(0xb4, crc8.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc8.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xb4 }));
+        }
+
+        [Test]
+        public void Crc8_MIFARE_MAD_Calculate()
+        {
+            var crc8 = new Crc(new CrcParameters(8, 0x1d, 0xc7, 0x00, false, false));
+            Assert.AreEqual(0x99, crc8.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc8.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0x99 }));
+        }
+
+        [Test]
+        public void Crc8_NRSC_5_Calculate()
+        {
+            var crc8 = new Crc(new CrcParameters(8, 0x31, 0xff, 0x00, false, false));
+            Assert.AreEqual(0xf7, crc8.CalculateAsNumeric(_data));
+            Assert.IsTrue(crc8.CalculateCheckValue(_data).SequenceEqual(new byte[] { 0xf7 }));
+        }
     }
 }
 
